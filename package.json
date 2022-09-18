@@ -6,6 +6,7 @@
   "scripts": {
     "test": "jest --watchAll --collectCoverage",
     "start": "node lib/main.js",
+    "build": "tsc",
     "dev:build": "tsc",
     "dev:serve": "nodemon -e js -w lib lib/main.js"
   },
