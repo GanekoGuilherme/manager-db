@@ -19,6 +19,9 @@ export class MongoDBDocumentDataSource implements DocumentDataSource {
   async getAll(): Promise<Document[]> {
     const result = await this.database.find({});
 
+    const start = result.length - 20;
+    const end = result.length;
+
     return result
       .map((item) => {
         const obj: any = undefined || {};
@@ -32,7 +35,7 @@ export class MongoDBDocumentDataSource implements DocumentDataSource {
 
         return obj;
       })
-      .slice(0, 20);
+      .slice(start < 0 ? 0 : start, end);
   }
 
   async getWithFilter(filterRaw: any): Promise<Document[]> {
@@ -56,6 +59,9 @@ export class MongoDBDocumentDataSource implements DocumentDataSource {
 
     const result = await this.database.find(filter);
 
+    const start = result.length - 20;
+    const end = result.length;
+
     return result
       .map((item) => {
         const obj: any = undefined || {};
@@ -69,6 +75,6 @@ export class MongoDBDocumentDataSource implements DocumentDataSource {
 
         return obj;
       })
-      .slice(0, 20);
+      .slice(start < 0 ? 0 : start, end);
   }
 }
