@@ -19,18 +19,20 @@ export class MongoDBDocumentDataSource implements DocumentDataSource {
   async getAll(): Promise<Document[]> {
     const result = await this.database.find({});
 
-    return result.map((item) => {
-      const obj: any = undefined || {};
+    return result
+      .map((item) => {
+        const obj: any = undefined || {};
 
-      Object.keys(item).forEach((key) => {
-        if (key === "_id") {
-          obj._id = item._id.toString();
-        }
-        obj[key] = item[key];
-      });
+        Object.keys(item).forEach((key) => {
+          if (key === "_id") {
+            obj._id = item._id.toString();
+          }
+          obj[key] = item[key];
+        });
 
-      return obj;
-    });
+        return obj;
+      })
+      .slice(0, 20);
   }
 
   async getWithFilter(filterRaw: any): Promise<Document[]> {
@@ -54,17 +56,19 @@ export class MongoDBDocumentDataSource implements DocumentDataSource {
 
     const result = await this.database.find(filter);
 
-    return result.map((item) => {
-      const obj: any = undefined || {};
+    return result
+      .map((item) => {
+        const obj: any = undefined || {};
 
-      Object.keys(item).forEach((key) => {
-        if (key === "_id") {
-          obj._id = item._id.toString();
-        }
-        obj[key] = item[key];
-      });
+        Object.keys(item).forEach((key) => {
+          if (key === "_id") {
+            obj._id = item._id.toString();
+          }
+          obj[key] = item[key];
+        });
 
-      return obj;
-    });
+        return obj;
+      })
+      .slice(0, 20);
   }
 }
